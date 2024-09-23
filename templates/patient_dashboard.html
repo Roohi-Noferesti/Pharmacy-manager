@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 10px;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        select, input {
+            margin-bottom: 10px;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .comments-container {
+            margin-top: 10px;
+        }
+
+        .comment {
+            margin-bottom: 5px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Patient Dashboard</h1>
+
+    <h2>Available Drugs</h2>
+    
+    <table>
+        <tr>
+            <th>Drug Code</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Order</th>
+            <th>Comment</th>
+            <th>Rating (0-5)</th>
+        </tr>
+        
+        {% for drug in available_drugs %}
+            <tr>
+                <td>{{ drug.drug_code }}</td>
+                <td>{{ drug.name }}</td>
+                <td>{{ drug.price }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('order_drug', drug_code=drug.drug_code) }}">
+                        <input type="hidden" name="my_drug_code" value="{{ drug.drug_code }}">
+                        
+                        <label for="pharmacy_code">Pharmacy Code:</label>
+                        <select name="pharmacy_code" required>
+                            {% for pharmacy_code in pharmacy_codes %}
+                                <option value="{{ pharmacy_code }}">{{ pharmacy_code }}</option>
+                            {% endfor %}
+                        </select>
+                    
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" name="quantity" value="1" required>
+                        
+                        <button type="submit">Order</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('comment_and_rate', drug_code=drug.drug_code) }}">
+                        <input type="hidden" name="my_drug_code" value="{{ drug.drug_code }}">
+                        
+                        <label for="comment">Comment:</label>
+                        <input type="text" name="comment" required>
+                        
+                        <label for="rating">Rating (0-5):</label>
+                        <input type="number" name="rating" min="0" max="5" required>
+                        
+                        <button type="submit">Submit Comment</button>
+                    </form>
+                    <div class="comments-container">
+                        {% for comment in drug.comments %}
+                            <p class="comment">{{ comment.comment }} - Rating: {{ comment.rating }}</p>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+
+    <h2>Current Orders</h2>
+
+    <table>
+        <tr>
+            <th>Drug Code</th>
+            <th>Order Code</th>
+            <th>Pharmacy Code</th>
+            <th>Quantity</th>
+        </tr>
+    
+        {% for order in current_orders %}
+            <tr>
+                <td>{{ order.order_code }}</td>
+                <td>{{ loop.index }}</td>
+                <td>{{ order.pharmacy_code }}</td>
+                <td>{{ order.quantity }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
+
+

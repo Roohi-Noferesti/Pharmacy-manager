@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Clerk Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 10px;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        select, input {
+            margin-bottom: 10px;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Warehouse Clerk Dashboard</h1>
+
+    <h2>Add New Drug Company</h2>
+    <form method="POST" action="{{ url_for('add_drug_company') }}">
+        <label for="company_name">Company Name:</label>
+        <input type="text" name="company_name" required>
+
+        <label for="registration_number">Registration Number:</label>
+        <input type="number" name="registration_number" required>
+
+        <label for="establishment_date">Establishment Date:</label>
+        <input type="date" name="establishment_date" required>
+
+        <label for="phone_number">Phone Number:</label>
+        <input type="tel" name="phone_number" required>
+
+        <label for="address">Address:</label>
+        <input type="text" name="address" required>
+
+        <button type="submit">Add Drug Company</button>
+    </form>
+
+    <h2>Add New Drug Manufacturer</h2>
+    <form method="POST" action="{{ url_for('add_drug_manufacturer') }}">
+        <label for="manufacturer_number">Manufacturer Number:</label>
+        <input type="number" name="manufacturer_number" required>
+
+        <label for="registration_number">Registration number:</label>
+        <input type="number" name="registration_number" required>
+
+        <button type="submit">Add Drug Manufacturer</button>
+    </form>
+
+    <h2>Add New Pharmacy</h2>
+    <form method="POST" action="{{ url_for('add_pharmacy') }}">
+        <label for="pharmacy_code">Pharmacy Code:</label>
+        <input type="text" name="pharmacy_code" required>
+
+        <label for="pharmacy_name">Pharmacy Name:</label>
+        <input type="text" name="pharmacy_name" required>
+
+        <label for="establishment_date">Establishment Date:</label>
+        <input type="date" name="establishment_date" required>
+
+        <label for="phone_number">Phone Number:</label>
+        <input type="tel" name="phone_number" required>
+
+        <label for="address">Address:</label>
+        <input type="text" name="address" required>
+
+        <label for="license">License:</label>
+        <input type="number" name="license" required>
+
+        <button type="submit">Add Pharmacy</button>
+    </form>
+    <h2>Place Mass Order</h2>
+    <form method="POST" action="{{ url_for('place_mass_order') }}">
+        <label for="drug_code">Drug Code:</label>
+        <input type="text" name="drug_code" required>
+
+        <label for="pharmacy_code">Pharmacy Code:</label>
+        <select name="pharmacy_code" required>
+            {% for pharmacy_code in pharmacy_codes %}
+                <option value="{{ pharmacy_code }}">{{ pharmacy_code }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="manufacturer_number">Manufacturer Number:</label>
+        <select name="manufacturer_number" required>
+            {% for manufacturer_number in manufacturer_numbers %}
+                <option value="{{ manufacturer_number }}">{{ manufacturer_number }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" value="1" required>
+
+        <button type="submit">Place Mass Order</button>
+    </form>
+
+</body>
+</html>

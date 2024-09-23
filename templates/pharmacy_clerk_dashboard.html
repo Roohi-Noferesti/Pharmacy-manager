@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Clerk Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome Warehouse Manager</h1>
+
+    <form method="POST" action="/add_drug">
+        <label for="drug_name">Drug Name:</label>
+        <input type="text" name="drug_name" required>
+
+        <label for="production_date">Production Date:</label>
+        <input type="date" name="production_date" required>
+
+        <label for="expiration_date">Expiration Date:</label>
+        <input type="date" name="expiration_date" required>
+
+        <label for="price">Price:</label>
+        <input type="number" name="price" step="0.01" required>
+
+        <label for="dosage">Dosage:</label>
+        <input type="text" name="dosage" required>
+
+        <label for="usage_instructions">Usage Instructions:</label>
+        <textarea name="usage_instructions" rows="4" required></textarea>
+
+        <label for="drug_inventory">Drug Inventory:</label>
+        <input type="number" name="drug_inventory" required>
+
+        <label for="pharmacy_code">Pharmacy Code:</label>
+        <input type="number" name="pharmacy_code">
+
+        <label for="company_code">Company Code:</label>
+        <input type="number" name="company_code" required>
+
+        <button type="submit">Add Drug</button>
+    </form>
+</body>
+</html>
